@@ -32,7 +32,8 @@ if (infoUsuario) {
 //recuperar elementos del DOM
 const divProducts = document.getElementById("productos")
 const finishButton = document.getElementById("finalizar")
-//funcion que ejecute el fetch
+
+//funcion que ejecute el fetch de todos los productos 
 const fetchProducts = async () => {
   const productsApi = await fetch('https://fakestoreapi.com/products')
   const productsJSON = await productsApi.json()
@@ -41,7 +42,7 @@ const fetchProducts = async () => {
 }
 
 //FUNCION QUE EJECUTE EL FETCH DE UN SOLO PRODUCTO
-const fetchOneProductroduct = async (id) => {
+const fetchOneProduct = async (id) => {
   const productApi = await fetch(`https://fakestoreapi.com/products${id}`)
   const productJSON = await productApi.json()
   //console.log(productJSON)
@@ -61,28 +62,26 @@ const renderproducts = async () => {
     <p class="card-text">${price} ${category}</p>
     <button id=${id} onclick="addProduct(${id})">AGREGAR</button>
   </div>
-</div>
-    `
-  }
-  )
+</div> `
+  })
 }
 renderproducts()
 
 //colocar producto en carrito
 const cart = []
 
-const addProduct = async (id) => {
-  const product = await fetchOneProductroduct(id)
-  const searchProductCart = cart.find(prod => prod.id === product.id)
+const addProduct = async (id)=>{
+  const product = await fetchOneProduct(id)
+  const searchProductCart = cart.find(prod=>prod.id === product.id)
   if (!searchProductCart) {
     cart.push({
       id: product.id,
       name:product.title,
-      quantify: 1,
+      quantity:1,
       price: product.price
     })
   } else {
-    searchProductCart.quantify++
+    searchProductCart.quantity++
   }
-  console.log(cart);
+  console.log(cart)
 }
