@@ -2,3 +2,25 @@
     width: 200px;
     margin: 5px;
 }
+.centrar{
+    text-align: center;
+}
+.btn1{
+    background-color: aqua;
+    border-radius: 0%;
+    padding: 15px;
+    
+}
+.btn2{
+    background-color: aquamarine;
+    border-radius: 0%;
+    padding: 15 px;
+    margin-top: 20px; ;
+}
+.f{
+    background-color: darkcyan;
+    border-bottom: 0%;
+    padding: 15px;
+    margin-bottom: 35 px;
+
+}

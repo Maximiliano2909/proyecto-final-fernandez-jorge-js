@@ -1,7 +1,12 @@
+
+//recuperar elementos del DOM
 const formulario = document.getElementById("formulario")
 const inputNombre = document.getElementById("nombre")
 const inputApellido = document.getElementById("apellido")
 const titulo = document.getElementById("titulo")
+const divProducts = document.getElementById("productos")
+const finishButton = document.getElementById("finalizar")
+
 
 //click sobre el boton ingresar
 formulario.onsubmit = (e) => {
@@ -9,32 +14,21 @@ formulario.onsubmit = (e) => {
   const infoUsuario = {
     nombre: inputNombre.value,
     apellido: inputApellido.value
+    
   }
   localStorage.setItem("infoUsuario", JSON.stringify(infoUsuario))
 
   titulo.innerText = `BIENVENIDO ${infoUsuario.nombre} ${infoUsuario.apellido}`
+  
 }
 
 const infoUsuario = JSON.parse(localStorage.getItem("infoUsuario"))
 if (infoUsuario) {
+  
 
   titulo.innerText = `BIENVENIDO ${infoUsuario.nombre} ${infoUsuario.apellido}`
 
 }
-
-
-
-
-
-
-
-
-//recuperar elementos del DOM
-const divProducts = document.getElementById("productos")
-const finishButton = document.getElementById("finalizar")
-document.addEventListener("DOMContentLoaded",()=> {
-  cart =JSON.parse(localStorage.getItem("cart"))
-})
 
 //funcion que ejecute el fetch de todos los productos 
 const fetchProducts = async () => {
@@ -42,6 +36,7 @@ const fetchProducts = async () => {
   const productsJSON = await productsApi.json()
   //console.log(productsJSON);
   return productsJSON
+  
 }
 
 //FUNCION QUE EJECUTE EL FETCH DE UN SOLO PRODUCTO
@@ -63,16 +58,18 @@ const renderproducts = async () => {
   <div class="card-body">
     <h5 class="card-title">${title}</h5>
     <p class="card-text">${price} ${category}</p>
-    <button id=${id} onclick="addProduct(${id})">AGREGAR</button>
-    <button id=${id} onclick="removeProduct(${id})">QUITAR</button>
+    <button class="btn1" id=${id} onclick="addProduct(${id})">AGREGAR</button>
+    <button class="btn2" id=${id} onclick="removeProduct(${id})">QUITAR</button>
   </div>
 </div> `
   })
+  console.log(cart)
 }
 renderproducts()
 
 //colocar producto en carrito
-let cart = []
+
+ let cart = []
 
 const addProduct = async (id)=>{
   const product = await fetchOneProduct(id)
@@ -89,7 +86,7 @@ const addProduct = async (id)=>{
   }
   messageAddProduct()
   guardarStorage()
-  console.log(cart)
+  //console.log(cart)
 }
 
 const removeProduct = (id)=>{
@@ -104,26 +101,26 @@ cart = cart.filter((prod)=> prod.id !==id)
     }
      messageRemoveProduct() 
   }
-  console.log(cart)
+ // console.log(cart)
 }
 
 const messageAddProduct = ()=>{
   Swal.fire({
     text:"product added",
-    timer:1000
+    timer:2000
   })
 }
 const messageRemoveProduct = ()=>{
   Swal.fire({
     text:"product removed",
-    timer:1000
+    timer:2000
   })
 }
 
 const messageNoProduct = ()=>{
   Swal.fire({
     text:"you dont have this product inyour cart",
-    timer:1000
+    timer:2000
   })
 }
 
@@ -131,24 +128,16 @@ function guardarStorage(){
   localStorage.setItem("cart", JSON.stringify(cart))
 }
 
-
-
-
-
-
-
-
-
-
-
-
+//BOTON FINALIZAR
 const botonFinalizar = document.querySelector("#finalizar")
 const thead = document.querySelector("#thead")
 const tbody = document.querySelector("#tbody")
 const parrafoTotal = document.querySelector("#total")
 botonFinalizar.onclick = ()=>{
+  
     divProducts.remove()
     botonFinalizar.remove()
+formulario.remove()
     thead.innerHTML = `<tr>
     <th scope="col">PRODUCTO</th>
     <th scope="col">CANTIDAD</th>
@@ -158,19 +147,20 @@ let totalCompra = 0
 
 
 
-
-cart.forEach(products=>{
-  
-  totalCompra+= products.cantidad*products.precio
+//TABLA CON NOMBRE DE LOS PRODUCTOS-VALORES-DEL CARRITO
+cart.forEach(product=>{
+  totalCompra+= product.quantity*product.price
   tbody.innerHTML+=`<tr>
-  <th scope="row">${products.nombre}</th>
-    <td>${products.cantidad}</td>
-    <td>${cantidad*precio}</td>
+  <th scope="row">${product.name}</th>
+    <td>${product.quantity}</td>
+    <td>${totalCompra.innerText = cart.reduce((acc,prod)=> acc + prod.quantity*prod.price,0)}</td>
   
 </tr>
 `
   })
 parrafoTotal.innerHTML = `El total de tu compra es ${totalCompra}`
+console.log(cart)
 }
+
 
 
