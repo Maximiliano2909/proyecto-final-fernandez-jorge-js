@@ -103,7 +103,7 @@ cart = cart.filter((prod)=> prod.id !==id)
   }
  // console.log(cart)
 }
-
+//mensajes de que el producto esta en el carrito
 const messageAddProduct = ()=>{
   Swal.fire({
     text:"product added",
@@ -144,8 +144,6 @@ formulario.remove()
     <th scope="col">TOTAL</th>
   </tr>`
 let totalCompra = 0
-
-
 
 //TABLA CON NOMBRE DE LOS PRODUCTOS-VALORES-DEL CARRITO
 cart.forEach(product=>{
