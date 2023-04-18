@@ -86,7 +86,7 @@ const addProduct = async (id)=>{
   }
   messageAddProduct()
   guardarStorage()
-  //console.log(cart)
+  console.log(cart)
 }
 
 const removeProduct = (id)=>{
@@ -100,8 +100,9 @@ cart = cart.filter((prod)=> prod.id !==id)
       searchProductCart.quantity--
     }
      messageRemoveProduct() 
+     guardarStorage()
   }
- // console.log(cart)
+ console.log(cart)
 }
 //mensajes de que el producto esta en el carrito
 const messageAddProduct = ()=>{
